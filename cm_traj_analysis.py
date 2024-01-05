@@ -26,13 +26,17 @@ mpl.rcParams['axes.linewidth']= 2
 
 
 
-data=pd.read_csv("contact_map_simulation.dat", header=None, delimiter="\t")
+data=pd.read_csv("contact_map_less.dat", header=None, delimiter="\t")
+#sorting the dataframe based on first column values
+sorted_df = data.sort_values(by=[0], ascending=True)
+#joining all the rows which has same values
+aggregated_df = sorted_df.groupby(0)[1].agg(''.join).reset_index()
 
-
-##**Capturing the first frame: Here I will loop to only one frame
-total_aa=data.iloc[:,0].max()
+total_aa=aggregated_df.shape[0]
 print(f"Total number of amino acids {total_aa}")
 print(f"Total number of frames {data.shape[0]/total_aa}")
+
+##**Capturing the first frame: Here I will loop to only one frame
 resnumber_array_initial=np.array([])
 contacts_array_initial=np.array([])
 counts_array_initial=np.array([])
@@ -51,10 +55,6 @@ while i<total_aa:
 
 
 ##**Capturing the trajectory: Here I will loop through all the frames
-#sorting the dataframe based on first column values
-sorted_df = data.sort_values(by=[0], ascending=True)
-#joining all the rows which has same values
-aggregated_df = sorted_df.groupby(0)[1].agg(''.join).reset_index()
 
 #creating empty numpy arrays to store values
 resnumber_array=np.array([])
@@ -124,60 +124,3 @@ plt.subplots_adjust(left=0.1,
 
 plt.savefig("contact_map-trajectory_analysis.png", dpi=300)
 #plt.show()
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
