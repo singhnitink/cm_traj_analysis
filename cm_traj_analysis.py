@@ -32,6 +32,7 @@ data=pd.read_csv("contact_map_simulation.dat", header=None, delimiter="\t")
 ##**Capturing the first frame: Here I will loop to only one frame
 total_aa=data.iloc[:,0].max()
 print(f"Total number of amino acids {total_aa}")
+print(f"Total number of frames {data.shape[0]/total_aa}")
 resnumber_array_initial=np.array([])
 contacts_array_initial=np.array([])
 counts_array_initial=np.array([])
@@ -59,7 +60,7 @@ aggregated_df = sorted_df.groupby(0)[1].agg(''.join).reset_index()
 resnumber_array=np.array([])
 contacts_array=np.array([])
 counts_array=np.array([])
-print(f"Total number of frames {aggregated_df.shape[0]}")
+
 i=0
 while i<aggregated_df.shape[0]:
     # Convert the string to a NumPy array of integers
